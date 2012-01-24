@@ -1229,6 +1229,8 @@ void World::LoadConfigSettings(bool reload)
     m_bool_configs[CONFIG_CONFIG_OUTDOORPVP_WINTERGRASP_ANTIFARM_ENABLE]  = ConfigMgr::GetBoolDefault("OutdoorPvP.Wintergrasp.Antifarm.Enable", false);
     m_int_configs[CONFIG_CONFIG_OUTDOORPVP_WINTERGRASP_ANTIFARM_ATK]  = ConfigMgr::GetIntDefault("OutdoorPvP.Wintergrasp.Antifarm.Atk", 5);
     m_int_configs[CONFIG_CONFIG_OUTDOORPVP_WINTERGRASP_ANTIFARM_DEF]  = ConfigMgr::GetIntDefault("OutdoorPvP.Wintergrasp.Antifarm.Def", 5);
+	m_int_configs[CONFIG_CONFIG_OUTDOORPVP_WINTERGRASP_MINLEVEL]  = ConfigMgr::GetIntDefault("OutdoorPvP.Wintergrasp.Minlevel", 74);
+	m_int_configs[CONFIG_CONFIG_OUTDOORPVP_WINTERGRASP_MAXPLAYERS]  = ConfigMgr::GetIntDefault("OutdoorPvP.Wintergrasp.MaxPlayers", 100);
 
     // Prevent players from accessing GM Island
     m_bool_configs[CONFIG_GMISLAND_PLAYERS_NOACCESS_ENABLE] = ConfigMgr::GetBoolDefault("GMIsland.PlayersNoAccess.Enable", true);

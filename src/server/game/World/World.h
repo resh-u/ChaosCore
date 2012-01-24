@@ -332,6 +332,8 @@ enum WorldIntConfigs
     CONFIG_OUTDOORPVP_WINTERGRASP_SAVESTATE_PERIOD,
     CONFIG_CONFIG_OUTDOORPVP_WINTERGRASP_ANTIFARM_ATK,
     CONFIG_CONFIG_OUTDOORPVP_WINTERGRASP_ANTIFARM_DEF,
+    CONFIG_CONFIG_OUTDOORPVP_WINTERGRASP_MINLEVEL,
+    CONFIG_CONFIG_OUTDOORPVP_WINTERGRASP_MAXPLAYERS,
     CONFIG_WARDEN_CLIENT_RESPONSE_DELAY,
     CONFIG_WARDEN_CLIENT_CHECK_PERIOD,
     CONFIG_WARDEN_CLIENT_FAIL_ACTION,
@@ -771,20 +773,23 @@ class World
 
         bool isEventKillStart;
 
-        CharacterNameData const* GetCharacterNameData(uint32 guid) const;
-        void AddCharacterNameData(uint32 guid, std::string const& name, uint8 gender, uint8 race, uint8 playerClass);
-        void UpdateCharacterNameData(uint32 guid, std::string const& name, uint8 gender = GENDER_NONE, uint8 race = RACE_NONE);
-        // Wintergrasp
-        uint32 GetWintergrapsTimer() { return m_WintergrapsTimer; }
-        uint32 GetWintergrapsState() { return m_WintergrapsState; }
-        uint32 m_WintergrapsTimer;
-        uint32 m_WintergrapsState;
         void SendWintergraspState();
+
         void SetWintergrapsTimer(uint32 timer, uint32 state)
         {
             m_WintergrapsTimer = timer;
             m_WintergrapsState = state;
         }
+
+        uint32 GetWintergrapsTimer() { return m_WintergrapsTimer; }
+        uint32 GetWintergrapsState() { return m_WintergrapsState; }
+
+        uint32 m_WintergrapsTimer;
+        uint32 m_WintergrapsState;
+
+        CharacterNameData const* GetCharacterNameData(uint32 guid) const;
+        void AddCharacterNameData(uint32 guid, std::string const& name, uint8 gender, uint8 race, uint8 playerClass);
+        void UpdateCharacterNameData(uint32 guid, std::string const& name, uint8 gender = GENDER_NONE, uint8 race = RACE_NONE);
 
         void DeleteCharaceterNameData(uint32 guid) { _characterNameDataMap.erase(guid); }
 

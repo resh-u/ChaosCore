@@ -59,6 +59,7 @@
 #include "BattlegroundMgr.h"
 #include "OutdoorPvP.h"
 #include "OutdoorPvPMgr.h"
+#include "OutdoorPvPWG.h"
 #include "ArenaTeam.h"
 #include "Chat.h"
 #include "Spell.h"
@@ -22580,6 +22581,19 @@ bool Player::InArena() const
 {
     Battleground* bg = GetBattleground();
     if (!bg || !bg->isArena())
+        return false;
+
+    return true;
+}
+
+bool Player::InOutdoorPVP(bool inwar)
+{
+    if (!sWorld->getBoolConfig(CONFIG_OUTDOORPVP_WINTERGRASP_ENABLED))
+        return false;
+
+    OutdoorPvPWG *pvpWG = (OutdoorPvPWG*)sOutdoorPvPMgr->GetOutdoorPvPToZoneId(4197);
+
+    if (!pvpWG || !pvpWG->HasPlayerInWG(this, inwar))
         return false;
 
     return true;
