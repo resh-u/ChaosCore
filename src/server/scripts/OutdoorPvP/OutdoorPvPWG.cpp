@@ -347,7 +347,7 @@ bool OutdoorPvPWG::SetupOutdoorPvP()
        uint32 capturePointEntry = 0;
 
        switch (goData->id)
-       {    
+       {
            // West Goblin Workshops
            case 192028: // NW
            case 192030: // W
@@ -1306,16 +1306,24 @@ bool OutdoorPvPWG::UpdateQuestGiverPosition(uint32 guid, Creature *creature)
 // true  = no need to rebuild (ie: Banners or teleporters)
 bool OutdoorPvPWG::UpdateGameObjectInfo(GameObject *go) const
 {
-   uint32 attFaction = 35;
-   uint32 defFaction = 35;
+   uint32 attFaction;
+   uint32 defFaction;
 
    if (isWarTime())
    {
        attFaction = WintergraspFaction[getAttackerTeam()];
        defFaction = WintergraspFaction[getDefenderTeam()];
    }
+   else
+   {
+       attFaction = 35;
+       defFaction = 35;
+   }
+   
+   if (!go || !go->GetGOInfo())
+      return true;
 
-   switch (go->GetGOInfo()->displayId)
+   switch(go->GetGOInfo()->displayId)
    {
        case 8244: // Defender's Portal - Vehicle Teleporter
            go->SetUInt32Value(GAMEOBJECT_FACTION, WintergraspFaction[getDefenderTeam()]);
@@ -1331,6 +1339,32 @@ bool OutdoorPvPWG::UpdateGameObjectInfo(GameObject *go) const
        case 7909: // Wintergrasp Wall
            go->SetUInt32Value(GAMEOBJECT_FACTION, defFaction);
            return false;
+       case 8256://Alliance Banner
+       case 5651://Alliance Banner
+            if (getDefenderTeam() == TEAM_ALLIANCE)
+            {
+                if (go->GetAreaId()==4575 || go->GetAreaId()==4539 || go->GetAreaId()==4538)
+                    go->SetPhaseMask(1, true);
+                else go->SetPhaseMask(2, true);
+            } else {
+                if (go->GetAreaId()==4575 || go->GetAreaId()==4539 || go->GetAreaId()==4538)
+                    go->SetPhaseMask(2, true);
+                else go->SetPhaseMask(1, true);
+            }
+            return true;
+       case 8257://Horde Banner
+       case 5652://Horde Banner
+            if (getDefenderTeam() == TEAM_ALLIANCE)
+            {
+                if (go->GetAreaId()==4575 || go->GetAreaId()==4539 || go->GetAreaId()==4538)
+                    go->SetPhaseMask(2, true);
+                else go->SetPhaseMask(1, true);
+            } else {
+                if (go->GetAreaId()==4575 || go->GetAreaId()==4539 || go->GetAreaId()==4538)
+                    go->SetPhaseMask(1, true);
+                else go->SetPhaseMask(2, true);
+            }
+            return true;
        case 7900: // Flamewatch Tower - Shadowsight Tower - Winter's Edge Tower
            go->SetUInt32Value(GAMEOBJECT_FACTION, attFaction);
            return false;
@@ -2420,6 +2454,8 @@ void OutdoorPvPWG::LoadQuestGiverMap(uint32 guid, Position posHorde, Position po
    m_questgivers[guid] = NULL;
    if (getDefenderTeam() == TEAM_ALLIANCE)
        sObjectMgr->MoveCreData(guid, 571, posAlli);
+   if (getDefenderTeam() == TEAM_HORDE)
+       sObjectMgr->MoveCreData(guid, 571, posHorde);
 }
 
 OPvPCapturePointWG *OutdoorPvPWG::GetWorkshop(uint32 lowguid) const
