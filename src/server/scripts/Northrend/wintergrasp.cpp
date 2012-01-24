@@ -19,6 +19,7 @@
 #include "ScriptPCH.h"
 #include "OutdoorPvPMgr.h"
 #include "OutdoorPvPWG.h"
+#include "Vehicle.h"
 
 #define GOSSIP_HELLO_DEMO1  "Build catapult."
 #define GOSSIP_HELLO_DEMO2  "Build demolisher."
@@ -170,8 +171,30 @@ public:
    }
 };
 
+class go_wg_veh_teleporter : public GameObjectScript
+{
+public:
+   go_wg_veh_teleporter() : GameObjectScript("go_wg_veh_teleporter") { }
+
+   bool OnGossipHello(Player* player, GameObject* go)
+   {
+       if (GameObject* trigger = go->FindNearestGameObject(190375, 500)) // Wintergrasp Fortress Gate
+       {
+           if (Vehicle* vehicle = player->GetVehicle())
+           {
+               Position triggerPos;
+               trigger->GetPosition(&triggerPos);
+               triggerPos.m_positionX -= 30;
+               vehicle->Relocate(triggerPos);
+           }
+       }
+       return true;
+   }
+};
+
 void AddSC_wintergrasp()
 {
    new npc_demolisher_engineerer();
    new npc_wg_dalaran_queue();
+   new go_wg_veh_teleporter();
 }

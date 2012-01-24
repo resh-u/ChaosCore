@@ -125,3 +125,6 @@ UPDATE `creature_template` SET `ScriptName` = 'npc_wg_dalaran_queue' WHERE `entr
 DELETE FROM `script_texts` WHERE entry =-1850507;
 INSERT INTO `script_texts` (`npc_entry`,`entry`,`content_default`,`content_loc1`,`content_loc2`,`content_loc3`,`content_loc4`,`content_loc5`,`content_loc6`,`content_loc7`,`content_loc8`,`sound`,`type`,`language`,`emote`,`comment`)VALUES
 (0, -1850507, 'Enter to queue in Wintergrasp', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Встать в очередь на Озеро Ледяных Оков', 0, 0, 0, 0, '');
+
+/* Vehicle Teleporter */
+UPDATE `gameobject_template` SET `type` = 6, `faction` = 0, `data2` = 10, `data3` = 54643, `ScriptName` = 'go_wg_veh_teleporter' WHERE `entry` = 192951;
