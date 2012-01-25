@@ -119,7 +119,7 @@ UPDATE `creature` SET `id` = 30739 WHERE `guid` in (51157, 51450, 52496, 51046, 
 UPDATE `creature_template` SET `flags_extra` = 2 WHERE `entry` in (30488, 30489);
 UPDATE `creature` SET `phaseMask` = 512 WHERE `guid` in (121120, 116248);
 /*Set raid quests*/
-UPDATE `quest_template` SET `Type` = 62 WHERE `entry` IN (13177, 13178, 13179, 13180, 13185, 13186, 13222, 13223, 13538, 13539);
+UPDATE `quest_template` SET `Type` = 62 WHERE `Id` IN (13177, 13178, 13179, 13180, 13185, 13186, 13222, 13223, 13538, 13539);
 
 UPDATE `creature_template` SET `ScriptName` = 'npc_wg_dalaran_queue' WHERE `entry` IN (32169,32170,35599,35596,35600,35601,35598,35603,35602,35597,35612,35611);
 DELETE FROM `script_texts` WHERE entry =-1850507;
