@@ -414,6 +414,7 @@ void LFGMgr::InitializeLockedDungeons(Player* player)
     uint64 guid = player->GetGUID();
     uint8 level = player->getLevel();
     uint8 expansion = player->GetSession()->Expansion();
+    float averageItemLevel = player->GetAverageItemLevel();
     LfgDungeonSet dungeons = GetDungeonsByRandom(0);
     LfgLockMap lock;
 
@@ -456,6 +457,7 @@ void LFGMgr::InitializeLockedDungeons(Player* player)
                 else if (ar->item2 && !player->HasItemCount(ar->item2, 1))
                     locktype = LFG_LOCKSTATUS_MISSING_ITEM;
         }
+
         /* TODO VoA closed if WG is not under team control (LFG_LOCKSTATUS_RAID_LOCKED)
             locktype = LFG_LOCKSTATUS_TOO_LOW_GEAR_SCORE;
             locktype = LFG_LOCKSTATUS_TOO_HIGH_GEAR_SCORE;
@@ -463,6 +465,23 @@ void LFGMgr::InitializeLockedDungeons(Player* player)
             locktype = LFG_LOCKSTATUS_ATTUNEMENT_TOO_HIGH_LEVEL;
             locktype = LFG_LOCKSTATUS_NOT_IN_SEASON; // Need list of instances and needed season to open
         */
+
+        float requiredItemLevel = 0.0f;
+        if (dungeon->expansion == 2 && dungeon->difficulty == DUNGEON_DIFFICULTY_HEROIC)
+            requiredItemLevel = 160.0f;
+
+        switch (dungeon->ID)
+        {
+            case 245: // Trial of the Champion
+                requiredItemLevel = 180;
+                break;
+            case 249: // Heroic: Trial of the Champion
+                requiredItemLevel = 200;
+                break;
+        }
+
+        if (averageItemLevel < requiredItemLevel)
+            locktype = LFG_LOCKSTATUS_TOO_LOW_GEAR_SCORE;
 
         if (locktype != LFG_LOCKSTATUS_OK)
             lock[dungeon->Entry()] = locktype;
