@@ -128,10 +128,5 @@ INSERT INTO `script_texts` (`npc_entry`,`entry`,`content_default`,`content_loc1`
 
 /* Vehicle Teleporter */
 UPDATE `gameobject_template` SET `type` = 6, `faction` = 0, `data2` = 10, `data3` = 54643, `ScriptName` = 'go_wg_veh_teleporter' WHERE `entry` = 192951;
-
-/* Spectral Gyphron to Wintergrasp */
-DELETE FROM `spell_area` WHERE `spell`=55164 AND `area`=4197;
-INSERT INTO `spell_area` 
-(`spell`,`area`,`quest_start`,`quest_start_active`,`aura_spell`,`racemask`,`gender`,`autocast`) 
-VALUES
-(55164,4197,0,0,8326,65527,2,1);
+/* Spirit Guide */
+UPDATE `creature_template` SET `ScriptName` = 'npc_wg_spirit_guide' WHERE `entry` IN (31841,31842);
