@@ -130,10 +130,10 @@ int Master::Run()
     sLog->outString("     / ____/  / /    / /  / _____  /  / ____  /  / ______/");
     sLog->outString("    / /      / /____/ /  / /    / /  / /   / /  / /_____");
     sLog->outString("   / /      / _____  /  / /____/ /  / /   / /  /_____  /");
-	sLog->outString("  / /____  / /    / /  / _____  /  / /___/ /  ______/ /");
+    sLog->outString("  / /____  / /    / /  / _____  /  / /___/ /  ______/ /");
     sLog->outString(" /______/ /_/    /_/  /_/    /_/  /_______/  /_______/");
     sLog->outString("                                     C O R E         ");
-	sLog->outString("Based on TrinityCore http://www.TrinityCore.org\n"); 
+    sLog->outString("Based on TrinityCore http://www.TrinityCore.org\n"); 
 
 #ifdef USE_SFMT_FOR_RNG
     sLog->outString("\n");
