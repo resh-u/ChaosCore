@@ -130,3 +130,9 @@ INSERT INTO `script_texts` (`npc_entry`,`entry`,`content_default`,`content_loc1`
 UPDATE `gameobject_template` SET `type` = 6, `faction` = 0, `data2` = 10, `data3` = 54643, `ScriptName` = 'go_wg_veh_teleporter' WHERE `entry` = 192951;
 /* Spirit Guide */
 UPDATE `creature_template` SET `ScriptName` = 'npc_wg_spirit_guide' WHERE `entry` IN (31841,31842);
+/* Teleport spell target positions */
+DELETE FROM `spell_target_position` WHERE `id` IN (59762,59766,59767,59765);
+INSERT INTO `spell_target_position` (`id`, `target_map`, `target_position_x`, `target_position_y`, `target_position_z`, `target_orientation`) VALUES (59762, 571, 5104.75, 2300.94, 368.56, 0.73); -- sunken ring teleport
+INSERT INTO `spell_target_position` (`id`, `target_map`, `target_position_x`, `target_position_y`, `target_position_z`, `target_orientation`) VALUES (59766, 571, 4336.46, 3235.35, 390.24, 0.19); -- westpark teleport 
+INSERT INTO `spell_target_position` (`id`, `target_map`, `target_position_x`, `target_position_y`, `target_position_z`, `target_orientation`) VALUES (59767, 571, 4318.44, 2408.04, 392.59, 6.12); -- eastpark teleport
+INSERT INTO `spell_target_position` (`id`, `target_map`, `target_position_x`, `target_position_y`, `target_position_z`, `target_orientation`) VALUES (59765, 571, 5031.83, 3710.75, 372.48, 3.99); -- horde landing teleport
